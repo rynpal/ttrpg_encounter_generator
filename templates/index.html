@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encounter Builder</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cinzel', serif;
+            background-color: white;
+            color: #1E3A8A; /* Blue color scheme */
+        }
+    </style>
+</head>
+<body class="p-6">
+    <div class="max-w-2xl mx-auto">
+        <h1 class="text-4xl font-bold mb-6">Fantasy TTRPG Encounter Builder</h1>
+        <form action="{{ url_for('generate') }}" method="post" class="space-y-4">
+            <div>
+                <label for="num_enemies" class="block text-lg">Number of Enemies:</label>
+                <input type="number" id="num_enemies" name="num_enemies" required class="mt-1 p-2 border rounded w-full" min="1" max="10">
+            </div>
+            <div>
+                <label for="difficulty" class="block text-lg">Difficulty Rating:</label>
+                <input type="number" id="difficulty" name="difficulty" required class="mt-1 p-2 border rounded w-full" min="1" max="30">
+            </div>
+            <div>
+                <label for="environment" class="block text-lg">Environment:</label>
+                <select id="environment" name="environment" required class="mt-1 p-2 border rounded w-full">
+                    <option value="Arctic">Arctic</option>
+                    <option value="Desert">Desert</option>
+                    <option value="Forest">Forest</option>
+                    <option value="Plains">Plains</option>
+                    <option value="Jungle">Jungle</option>
+                    <option value="Mountain">Mountain</option>
+                    <option value="Swamp">Swamp</option>
+                    <option value="Cavern">Cavern</option>
+                    <option value="Underwater">Underwater</option>
+                    <option value="Urban">Urban</option>
+                </select>
+            </div>
+            <div>
+                <label for="enemy_size" class="block text-lg">Enemy Size:</label>
+                <select id="enemy_size" name="enemy_size" required class="mt-1 p-2 border rounded w-full">
+                    <option value="Tiny">Tiny</option>
+                    <option value="Small">Small</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Large">Large</option>
+                    <option value="Huge">Huge</option>
+                    <option value="Gargantuan">Gargantuan</option>
+                </select>
+            </div>
+            <div>
+                <label for="enemy_type" class="block text-lg">Enemy Type:</label>
+                <select id="enemy_type" name="enemy_type" required class="mt-1 p-2 border rounded w-full">
+                    <option value="Humanoid">Humanoid</option>
+                    <option value="Beast">Beast</option>
+                    <option value="Demonic">Demonic</option>
+                    <option value="Construct">Construct</option>
+                    <option value="Elemental">Elemental</option>
+                    <option value="Fey">Fey</option>
+                    <option value="Phantasmal">Phantasmal</option>
+                    <option value="Eldritch">Eldritch</option>
+                    <option value="Corrupted">Corrupted</option>
+                    <option value="Ethereal">Ethereal</option>
+                </select>
+            </div>
+            <div>
+                <label for="additional_details" class="block text-lg">Additional Details:</label>
+                <textarea id="additional_details" name="additional_details" class="mt-1 p-2 border rounded w-full"></textarea>
+            </div>
+            <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Generate Encounter</button>
+        </form>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="mt-4">
+                    {% for message in messages %}
+                        <li class="text-red-500">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>
