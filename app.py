@@ -7,6 +7,7 @@ import markdown
 from markupsafe import Markup
 import logging
 import re
+import traceback
 
 # Load environment variables from .env file
 load_dotenv()
@@ -95,6 +96,8 @@ def generate():
 
         return render_template('result.html', encounter=encounter_details_html, stat_blocks=stat_blocks_html, experience_award=experience_award_html, loot_table=loot_table_html)
     except Exception as e:
+        logging.error("An error occurred: %s", str(e))
+        logging.error("Stack trace: %s", traceback.format_exc())
         flash(f"An error occurred: {str(e)}")
         return redirect(url_for('index'))
 
