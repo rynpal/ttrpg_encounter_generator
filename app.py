@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 import os
 import markdown
 from markupsafe import Markup
+import logging
+import re
 
 # Load environment variables from .env file
 load_dotenv()
@@ -14,6 +16,9 @@ app.secret_key = os.getenv('FLASK_SECRET_KEY')  # Load secret key from .env file
 
 # Configure OpenAI API key
 openai.api_key = os.getenv('OPENAI_API_KEY')  # Load OpenAI API key from .env file
+
+# Configure logging
+logging.basicConfig(level=logging.DEBUG)
 
 @app.route('/')
 def index():
@@ -57,17 +62,24 @@ def generate():
                 {"role": "system", "content": "You are a helpful assistant that generates TTRPG encounters."},
                 {"role": "user", "content": prompt}
             ],
-            max_tokens=1000
+            max_tokens=2000
         )
+
+        # Log the full response from OpenAI
+        # logging.debug(f"OpenAI response: {response}")
 
         encounter_text = response.choices[0].message.content.strip()
 
-        # Split the response into different sections
-        sections = encounter_text.split("###")
-        encounter_details = sections[1].strip() if len(sections) > 1 else "No encounter details provided."
-        stat_blocks = sections[2].strip() if len(sections) > 2 else "No stat blocks provided."
-        experience_award = sections[3].strip() if len(sections) > 3 else "No experience award provided."
-        loot_table = sections[4].strip() if len(sections) > 4 else "No loot table provided."
+        # Use regular expressions to extract sections
+        encounter_details_match = re.search(r'### Encounter Details\s*(.*?)\s*(?=###|$)', encounter_text, re.DOTALL)
+        stat_blocks_match = re.search(r'### Stat Blocks\s*(.*?)\s*(?=###|$)', encounter_text, re.DOTALL)
+        experience_award_match = re.search(r'### Experience Award\s*(.*?)\s*(?=###|$)', encounter_text, re.DOTALL)
+        loot_table_match = re.search(r'### Loot Table\s*(.*?)\s*(?=###|$)', encounter_text, re.DOTALL)
+
+        encounter_details = encounter_details_match.group(1).strip() if encounter_details_match else "No encounter details provided."
+        stat_blocks = stat_blocks_match.group(1).strip() if stat_blocks_match else "No stat blocks provided."
+        experience_award = experience_award_match.group(1).strip() if experience_award_match else "No experience award provided."
+        loot_table = loot_table_match.group(1).strip() if loot_table_match else "No loot table provided."
 
         # Strip headings
         encounter_details = strip_heading(encounter_details, "Encounter Details")
