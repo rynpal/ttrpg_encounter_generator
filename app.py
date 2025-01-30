@@ -48,6 +48,7 @@ def generate():
             f"Enemy Type: {enemy_type}\n"
             f"Additional Details: {additional_details}\n"
             f"Possibly include a group of enemies with a leader who has an interesting name and title, but this is not required.\n"
+            f"If there are multiple enemies, seperate their information with a line break.\n"
             f"Ensure the encounter details, stat blocks, experience award, and loot table are in line with Dungeons and Dragons Fifth Edition rules.\n"
             f"Please format the STR, DEX, CON, INT, WIS, and CHA stats as rows.\n"
             f"Include the following sections, delimited by '###':\n"
