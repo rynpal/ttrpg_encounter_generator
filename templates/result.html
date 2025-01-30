@@ -1,29 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Generated Encounter</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: 'Cinzel', serif;
-            background-color: white;
-            color: #1E3A8A; /* Blue color scheme */
-        }
+      body {
+        font-family: "Cinzel", serif;
+        background-color: white;
+        color: #1e3a8a; /* Blue color scheme */
+      }
+      table {
+        color: #1e3a8a; /* Match text color */
+        border: 1px solid #1e3a8a; /* Border color */
+        border-collapse: collapse; /* Ensure borders are visible */
+      }
+      th,
+      td {
+        border: 1px solid #1e3a8a; /* Border color for table cells */
+        padding: 8px; /* Padding for table cells */
+      }
     </style>
-</head>
-<body class="p-6">
+  </head>
+  <body class="p-6">
     <div class="max-w-2xl mx-auto">
-        <h1 class="text-4xl font-bold mb-4">Generated Encounter</h1>
-        <pre class="bg-blue-100 p-4 rounded whitespace-pre-wrap">{{ encounter|safe }}</pre>
-        <h2 class="text-2xl font-bold mt-6">Stat Blocks</h2>
-        <pre class="bg-blue-100 p-4 rounded whitespace-pre-wrap">{{ stat_blocks|safe }}</pre>
-        <h2 class="text-2xl font-bold mt-6">Experience Award</h2>
-        <pre class="bg-blue-100 p-4 rounded whitespace-pre-wrap">{{ experience_award|safe }}</pre>
-        <h2 class="text-2xl font-bold mt-6">Loot Table</h2>
-        <pre class="bg-blue-100 p-4 rounded whitespace-pre-wrap">{{ loot_table|safe }}</pre>
-        <a href="{{ url_for('index') }}" class="text-blue-500 hover:underline mt-4 inline-block">Generate Another Encounter</a>
+      <h1 class="text-4xl font-bold mb-4">Generated Encounter</h1>
+      <pre
+        class="bg-blue-100 p-4 rounded whitespace-pre-wrap border border-blue-900"
+      >
+{{ encounter|safe }}</pre
+      >
+      <h2 class="text-2xl font-bold mt-6">Stat Blocks</h2>
+      <pre
+        class="bg-blue-100 p-4 rounded whitespace-pre-wrap border border-blue-900"
+      >
+{{ stat_blocks|safe }}</pre
+      >
+      <h2 class="text-2xl font-bold mt-6">Experience Award</h2>
+      <pre
+        class="bg-blue-100 p-4 rounded whitespace-pre-wrap border border-blue-900"
+      >
+{{ experience_award|safe }}</pre
+      >
+      <h2 class="text-2xl font-bold mt-6">Loot Table</h2>
+      <pre
+        class="bg-blue-100 p-4 rounded whitespace-pre-wrap border border-blue-900"
+      >
+{{ loot_table|safe }}</pre
+      >
+      <a
+        href="{{ url_for('index') }}"
+        class="text-blue-500 hover:underline mt-4 inline-block"
+        >Generate Another Encounter</a
+      >
     </div>
-</body>
+  </body>
 </html>
